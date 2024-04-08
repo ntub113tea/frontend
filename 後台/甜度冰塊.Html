@@ -116,7 +116,7 @@
         const output = '您選擇的甜度為：' + selectedSweetness + '，冰塊選擇為：' + selectedIce;
         alert(output);
 
-        // 跳转到另一个页面
+        //轉到另一個頁面
         window.location.href = '選的飲料.html';
     }function onSubmit() {
     const selectedSweetness = getSelectedOption(sweetnessOptions);
@@ -126,11 +126,11 @@
         return;
     }
     
-    // 将用户选择的甜度和冰塊选项存储到localStorage
+    // 甜度和冰塊存到localStorage
     localStorage.setItem('selectedSweetness', selectedSweetness);
     localStorage.setItem('selectedIce', selectedIce);
     
-    // 跳转到另一个页面
+    //轉到另一個頁面
     window.location.href = '選的飲料.html';
 }
 
