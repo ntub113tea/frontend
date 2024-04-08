@@ -39,26 +39,28 @@
 
 <div id="container">
     <h1>您的選擇結果</h1>
-    <p id="symptom"></p>
+    <p id="symptom"></p> 
     <p id="outputSweetness"></p>
     <p id="outputIce"></p>
 </div>
 
 <script>
     function updateResult() {
-        const symptom = localStorage.getItem('symptom');
-        const selectedSweetness = localStorage.getItem('selectedSweetness');
-        const selectedIce = localStorage.getItem('selectedIce');
+        // 從localStorage獲取用戶的症狀、甜度和冰塊選擇
+        const symptom = localStorage.getItem('symptom');//症狀
+        const selectedSweetness = localStorage.getItem('selectedSweetness');//症狀
+        const selectedIce = localStorage.getItem('selectedIce');//冰塊
 
-        const outputSymptom = document.getElementById('symptom');
-        const outputSweetness = document.getElementById('outputSweetness');
-        const outputIce = document.getElementById('outputIce');
+        // 獲取要更新的結果元素 
+        const outputSymptom = document.getElementById('symptom');//症狀
+        const outputSweetness = document.getElementById('outputSweetness');//甜度
+        const outputIce = document.getElementById('outputIce');//冰塊
 
-        outputSymptom.textContent = '您的症狀選擇為：' + symptom;
-        outputSweetness.textContent = '您的甜度選擇為：' + selectedSweetness;
-        outputIce.textContent = '您的冰塊選擇為：' + selectedIce;
-    }
-
+        // 將用戶選擇的症狀、甜度和冰塊選擇更新到相應的元素上
+        outputSymptom.textContent = '您的症狀選擇為：' + symptom; //症狀
+        outputSweetness.textContent = '您的甜度選擇為：' + selectedSweetness; //甜度
+        outputIce.textContent = '您的冰塊選擇為：' + selectedIce; //冰塊
+}
     updateResult();
 </script>
 

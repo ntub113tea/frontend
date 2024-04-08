@@ -83,8 +83,13 @@
 
 <script>
     const sweetnessOptions = document.querySelectorAll('#sweetnessOptions .option');
+    /*"sweetnessOptions" 的元素下所有具有 ".option" 類別的子元素，並將它們存儲在 sweetnessOptions*/
+
     const iceOptions = document.querySelectorAll('#iceOptions .option');
+    /*"iceOptions" 的元素下所有具有 ".option" 類別的子元素，並將它們存儲在 iceOptions*/
+
     const submitButton = document.getElementById('submitButton');
+    /*按鈕元素並將其存儲在 submitButton*/
 
     function setSelected(element) {
         const group = element.parentElement.querySelectorAll('.option');
@@ -106,25 +111,24 @@
         return selectedOption;
     }
 
-    function onSubmit() {
+    function onSubmit() { 
         const selectedSweetness = getSelectedOption(sweetnessOptions);
+        //甜度選項中獲取選定的甜度值
+
         const selectedIce = getSelectedOption(iceOptions);
+        //冰塊選項中獲取選定的冰塊值
+
         if (selectedSweetness === null || selectedIce === null) {
             alert("請選擇甜度和冰塊");
             return;
-        }
-        const output = '您選擇的甜度為：' + selectedSweetness + '，冰塊選擇為：' + selectedIce;
-        alert(output);
+        }/*是否選擇了甜度和冰塊，如果沒有則彈出警告*/
 
-        //轉到另一個頁面
+        const output = '您選擇的甜度為：' + selectedSweetness + '，冰塊選擇為：' + selectedIce; //用戶選擇的甜度和冰塊
+
+        alert(output);//對話框顯示用戶所選擇的甜度和冰塊
+
+        //有的話儲存轉到另一個頁面
         window.location.href = '選的飲料.html';
-    }function onSubmit() {
-    const selectedSweetness = getSelectedOption(sweetnessOptions);
-    const selectedIce = getSelectedOption(iceOptions);
-    if (selectedSweetness === null || selectedIce === null) {
-        alert("請選擇甜度和冰塊");
-        return;
-    }
     
     // 甜度和冰塊存到localStorage
     localStorage.setItem('selectedSweetness', selectedSweetness);
@@ -134,20 +138,22 @@
     window.location.href = '選的飲料.html';
 }
 
-
+    //點擊甜度按鈕
     sweetnessOptions.forEach(option => {
         option.addEventListener('click', function() {
             setSelected(option);
         });
-    });
+    }); 
 
+    //點擊冰塊按鈕
     iceOptions.forEach(option => {
         option.addEventListener('click', function() {
             setSelected(option);
         });
     });
 
-    submitButton.addEventListener('click', onSubmit);
+    //點擊確定按鈕
+    submitButton.addEventListener('click', onSubmit); 
 </script>
 
 </body>
