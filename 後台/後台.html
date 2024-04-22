@@ -4,52 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>選擇您的症狀</title>
-    <style>
-        body {
-            font-family: '微軟正黑體', Arial, sans-serif;
-            background-color: #d1f0c0;
-            margin: 0;
-            padding: 0;
-            text-align: center;
-        }
-        .container {
-            margin: 50px auto;
-            max-width: 80%;
-            background-color: #fff;
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        h1 { /*標題 [選擇您的症狀]*/
-            color: #333;
-            margin-bottom: 20px;
-        }
-        .item {
-            display: inline-block;
-            margin: 10px;
-            cursor: pointer;
-            width: calc(30% - 20px);
-            text-align: center;
-            background-color: #fff;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        .item:hover {
-            transform: translateY(-5px);
-            transition: transform 0.3s ease;
-        }
-        .item img {
-            width: 100%;
-            height: auto;
-            border-bottom: 2px solid #ccc;
-        }
-        .item .title {
-            margin: 10px 0;
-            font-size: 18px;
-            color: #333;
-        }
-    </style>
+    <link rel="stylesheet" href="後台.Css">
+        
 </head>
 <body>
 
@@ -87,9 +43,9 @@
             <img src="生理期.jpg" alt="Item 6">
             <div class="title">厭世生理期</div>
         </a>
-        <a href="甜度冰塊.html" class="item" id="symptom7" onclick="selectSymptom('客製化')"> <!-- 添加 onclick 事件 -->
-            <img src="客製化.jpg" alt="Item 7">
-            <div class="title">客製化</div>   <!--新增客製化按鈕-->
+        <a href="表單第1頁.html" class="item" id="symptom6" onclick="selectSymptom('客製化')"> <!-- 添加 onclick 事件 -->
+            <img src="客製化.jpg" alt="Item 6">
+            <div class="title">客製化</div>
         </a>
     </div>
 </div>
