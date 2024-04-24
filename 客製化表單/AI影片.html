@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>播放影片</title>
+    <link rel="stylesheet" href="AI影片.CSS">
+</head>
+<body>
+
+<video id="videoPlayer" controls>
+    <source src="AI Video .mp4" type="video/mp4">
+    Your browser does not support the video tag or the file format of this video. 
+</video>
+
+<script>
+    var video = document.getElementById('videoPlayer');
+
+    video.addEventListener('ended', function () {
+        // 影片播放完畢時，導航到下一個 HTML 頁面
+        window.location.href = "使用者表單.HTML";
+    });
+</script>
+
+</body>
+</html>
