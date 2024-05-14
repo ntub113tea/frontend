@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <title>症狀、甜度與冰塊選擇</title>
+    <link rel="stylesheet" href="POS介面.css">
+    <style>
+       
+    </style>
+</head>
+<body>
+    <!-- 提示存貨不足 -->
+    <div id="lowInventoryList" class="lowInventoryList"></div>
+
+    <!-- 症狀選擇 -->
+    <div class="container">
+        <h1>選擇飲品</h1>
+        <div class="row">
+            <a class="item" id="symptom1" onclick="selectSymptom('symptom1')">星夜寧靜</a>
+            <a class="item" id="symptom2" onclick="selectSymptom('symptom2')">宵福調和</a>
+            <a class="item" id="symptom3" onclick="selectSymptom('symptom3')">鼻福寧茶</a>
+        </div>
+        <div class="row">
+            <a class="item" id="symptom4" onclick="selectSymptom('symptom4')">悅膚寧茶</a>
+            <a class="item" id="symptom5" onclick="selectSymptom('symptom5')">慰胃來茶</a>
+            <a class="item" id="symptom6" onclick="selectSymptom('symptom6')">月悅茶</a>
+        </div>
+        <hr>
+        <!-- 甜度選擇 -->
+        <div class="option-group">
+            <div class="option-title">甜度：</div>
+            <div class="sweetnessOptions">
+                <div class="option" data-value="正常甜(10分)" onclick="setSelected(this)">正常甜(10分)</div>
+                <div class="option" data-value="少糖(7分)" onclick="setSelected(this)">少糖(7分)</div>
+                <div class="option" data-value="半糖(5分)" onclick="setSelected(this)">半糖(5分)</div>
+                <div class="option" data-value="微糖(3分)" onclick="setSelected(this)">微糖(3分)</div>
+                <div class="option" data-value="無糖" onclick="setSelected(this)">無糖(0分)</div>
+            </div>
+        </div>
+        <!-- 冰塊選擇 -->
+        <div class="option-group">
+            <div class="option-title">冰塊：</div>
+            <div class="iceOptions">
+                <div class="option" data-value="正常冰" onclick="setSelected(this)">正常冰</div>
+                <div class="option" data-value="少冰" onclick="setSelected(this)">少冰</div>
+                <div class="option" data-value="微冰" onclick="setSelected(this)">微冰</div>
+                <div class="option" data-value="去冰" onclick="setSelected(this)">去冰</div>
+                <div class="option" data-value="熱飲" onclick="setSelected(this)">熱飲</div>
+            </div>
+        </div>
+        <!-- 產品數量輸入框 -->
+        <input type="number" class="productQuantityInput" placeholder="輸入產品數量">
+        <!-- 添加到購物車按鈕 -->
+        <button class="submitButton" onclick="onSubmit()">添加到購物車</button>
+    </div>
+
+    <!-- 顯示選擇結果的容器 -->
+    <div class="resultContainer" style="display: none;">
+        <div class="container">
+            <h2>您的選擇：</h2>
+            <ul id="productList"></ul>
+        </div>
+        <!-- 確認訂單 -->
+        <button>確認訂單</button>
+    </div>
+    
+
+    <script>
+        // 更新產品數量的函數
+        function updateQuantity() {
+            var productQuantity = document.querySelector('.productQuantityInput').value;
+            document.getElementById('quantityResult').textContent = '數量：' + productQuantity;
+            localStorage.setItem('productQuantity', productQuantity);
+        }
+
+        // 症狀選擇
+        function selectSymptom(symptom) {
+            console.log("選擇的症狀：" + symptom);
+            let chineseSymptom = '';
+            switch (symptom) {
+                case 'symptom1':
+                    chineseSymptom = '星夜寧靜';
+                    break;
+                case 'symptom2':
+                    chineseSymptom = '宵福調和';
+                    break;
+                case 'symptom3':
+                    chineseSymptom = '鼻福寧茶';
+                    break;
+                case 'symptom4':
+                    chineseSymptom = '悅膚寧茶';
+                    break;
+                case 'symptom5':
+                    chineseSymptom = '慰胃來茶';
+                    break;
+                case 'symptom6':
+                    chineseSymptom = '月悅茶';
+                    break;
+                default:
+                    chineseSymptom = '未知症狀';
+            }
+            const items = document.querySelectorAll('.item');
+            items.forEach(item => {
+                item.classList.remove('selected');
+            });
+            const selectedSymptom = document.getElementById(symptom);
+            selectedSymptom.classList.add('selected');
+        }
+
+
+        // 甜度或冰塊的選擇狀態
+        function setSelected(element) {
+            const group = element.parentElement.querySelectorAll('.option');
+            group.forEach(option => {
+                if (option !== element) {
+                    option.classList.remove('selected');
+                }
+            });
+            element.classList.toggle('selected');
+        }
+
+        // 獲取所選甜度或冰塊的值
+        function getSelectedOption(options) {
+            let selectedOption = null;
+            options.forEach(option => {
+                if (option.classList.contains('selected')) {
+                    selectedOption = option.getAttribute('data-value');
+                }
+            });
+            return selectedOption;
+        }
+
+       // 用戶點擊確定按鈕時被調用
+       function onSubmit() { 
+    const selectedSweetness = getSelectedOption(document.querySelectorAll('.sweetnessOptions .option'));
+    const selectedIce = getSelectedOption(document.querySelectorAll('.iceOptions .option'));
+
+    // 獲取選定的症狀元素
+    const selectedSymptomElement = document.querySelector('.item.selected');
+
+    // 檢查是否選擇了症狀、甜度和冰塊。
+    if (!selectedSymptomElement) {
+        alert("請選擇飲品");
+        return;
+    }
+    if (selectedSweetness === null) {
+        alert("請選擇甜度");
+        return;
+    }
+    if (selectedIce === null) {
+        alert("請選擇冰塊");
+        return;
+    }
+
+    const selectedSymptom = selectedSymptomElement.textContent.trim();
+    const productQuantity = document.querySelector('.productQuantityInput').value.trim();
+    
+    // 檢查產品數量是否為空或負數。
+    if (productQuantity === '') {
+        alert('請輸入產品數量');
+        return;
+    }
+    if (productQuantity < 1) {
+        alert('請輸入有效的產品數量');
+        return;
+    }
+
+    // 建立新的 li 元素來顯示使用者選擇的產品訊息
+    const li = document.createElement('li');
+    const ul = document.createElement('u1');
+    li.textContent = `症狀：${selectedSymptom}，甜度：${selectedSweetness}，冰塊：${selectedIce}，數量：${productQuantity}`;
+    document.body.prepend(li)
+        li.after(ul)
+        //刪除鍵
+        li.insertAdjacentHTML('beforeend',`<button onclick="removeItem(this)">刪除</button>`)
+
+
+    document.getElementById('productList').appendChild(li);
+
+    // 清空输入框中的值
+    document.querySelector('.productQuantityInput').value = '';
+
+    // 顯示使用者選擇的結果
+    document.querySelector('.resultContainer').style.display = 'block';
+    }
+
+    // 刪除項目
+    function removeItem(item) {
+    item.parentNode.parentNode.removeChild(item.parentNode);
+    }
+    </script>
+</body>
+</html>
