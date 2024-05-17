@@ -44,13 +44,15 @@ def choose_herb(symptom, choice, total_weight):
         if choice in dosage:
             # 計算每個症狀所需的藥材克數
             required_dosage = dosage[choice]
-            # 計算調整比例，以確保所有藥材的總和為 total_weight
-            adjustment_factor = total_weight / sum(dosage.values())
-            # 調整每個症狀所需的藥材克數
-            adjusted_dosage = required_dosage * adjustment_factor
-            # 限制小數位數最多為兩位
-            adjusted_dosage = round(adjusted_dosage, 2)
-            return f"{herb} {adjusted_dosage:.2f}g"
+
+            # (刪除此行)計算調整比例，以確保所有藥材的總和為 total_weight
+            # (刪除此行)adjustment_factor = total_weight / sum(dosage.values())
+            # (刪除此行)調整每個症狀所需的藥材克數
+            # (刪除此行)adjusted_dosage = required_dosage * adjustment_factor
+            # (刪除此行)限制小數位數最多為兩位
+            # (刪除此行)adjusted_dosage = round(adjusted_dosage, 2)
+
+            return f"{herb} {required_dosage:.2f}g"#修改程式{adjusted_dosage:.2f}變成{required_dosage:.2f}
         else:
             return "Invalid choice!"
     else:
@@ -73,13 +75,14 @@ def main():
         choice = input(f"{symptom} 的程度(1-5): ")
         result.append(choose_herb(symptom, choice, total_weight))
 
-    # 如果六種藥材的克數加總超過5，則進行額外調整
+    # 計算所有藥材的總和克數
     total_sum = sum(float(item.split()[1][:-1]) for item in result)
-    if total_sum > 5:
-        adjustment_factor = 5 / total_sum
-        for i in range(len(result)):
-            dosage = float(result[i].split()[1][:-1]) * adjustment_factor
-            result[i] = result[i].split()[0] + f" {dosage:.2f}g"
+
+    # (刪除此行)if total_sum > 5:
+    adjustment_factor = total_weight / total_sum  #修改5 / total_sum成total_weight / total_sum
+    for i in range(len(result)):
+        dosage = float(result[i].split()[1][:-1]) * adjustment_factor
+        result[i] = result[i].split()[0] + f" {dosage:.2f}g"
 
     print("\n結果:")
     for item in result:
