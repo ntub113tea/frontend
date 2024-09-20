@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>舌頭辨識</title>
+    <link rel="stylesheet" href="opencv.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    
+    <style>
+       
+    </style>
+</head>
+<body>
+
+    <!-- 頁首區域 -->
+    <div class="header">
+        <a href="/index/">
+            <img src="{% static 'images/logo.png' %}" alt="Logo" class="img-fluid" style="max-height: 90px;">
+        </a>
+    </div>
+  <!-- 大標題 -->
+  <div class="container text-center my-4">
+    <h1>舌頭影像辨識</h1>
+</div>
+     <!-- 左邊圖片區域 -->
+     <div class="left-images">
+        <figure>
+        <img src="舌正常.png" alt="Image 1">
+        <figcaption>正常</figcaption>
+        </figure>
+        <figure>
+        <img src="舌白.png" alt="Image 2">
+        <figcaption>偏白</figcaption>
+        </figure>
+        <figure>
+        <img src="舌紅.png" alt="Image 3">
+        <figcaption>偏紅</figcaption>
+        </figure>
+    </div>
+
+    
+
+    <!-- 相機即時影像區域 -->
+    <div class="container video-container">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-12">
+                <video id="videoPlayer" autoplay></video>
+            </div>
+        </div>
+    </div>
+
+    <!-- 按鈕區域 -->
+    <div class="container buttonContainer"style="margin-top: -100px;">
+        <button id="nextPageButton" class="btn btn-primary">送出</button>
+    </div>
+
+    <script>
+        // 取得相機畫面
+        const video = document.getElementById('videoPlayer');
+
+        // 檢查瀏覽器是否支援 getUserMedia API
+        if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+            navigator.mediaDevices.getUserMedia({ video: true })
+            .then(function(stream) {
+                video.srcObject = stream;  // 將相機畫面傳遞到 video 元素
+                video.play();
+            })
+            .catch(function(error) {
+                console.error("相機無法開啟:", error);
+                alert("無法開啟相機，請檢查權限設置或設備是否支持。");
+            });
+        } else {
+            alert("您的瀏覽器不支援相機功能。");
+        }
+
+        // 點擊按鈕時跳轉到下一個頁面
+        document.getElementById('nextPageButton').addEventListener('click', function() {
+            window.location.href = "/question/";
+        });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-cVKIPhGmYLVy4S+PEkRYo7Tw25dBkswNf1KwNf5q5i8HB5l5t8TOKN+z+2Q2Qqcs" crossorigin="anonymous"></script>
+    
+</body>
+</html>
