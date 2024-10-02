@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>播放影片</title>
+    {% load static%}
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+</head>
+<body>
+{% load static%}
+<div class="header">
+    <span>
+        <a href="/index/"><img src="{% static 'images/logo.png' %}" style="height: 90px; width: auto;"></a>
+    </span>
+</div>   
+<div class="vedio">
+    <video id="videoPlayer" controls>
+    <source src="{% static 'images/AI Video .mp4' %}" type="video/mp4">
+    Your browser does not support the video tag or the file format of this video. 
+    </video>
+</div> 
+
+
+<div class="buttonContainer">
+    <button id="nextPageButton">開始填表單</button>
+</div>
+
+<script>
+// 定義影片清單
+const videos = [
+      '顏聿茗.mp4',
+      '徐若蓁.mp4',
+      '洪藝芸.mp4',
+      '張家凱.mp4'
+    ];
+
+    // 隨機選擇一個影片
+    const randomIndex = Math.floor(Math.random() * videos.length);
+    const selectedVideo = videos[randomIndex];
+
+    // 播放選擇的影片
+    const videoPlayer = document.getElementById('videoPlayer');
+    videoPlayer.src = selectedVideo;
+    videoPlayer.play();
+
+    var video = document.getElementById('videoPlayer');
+    var nextPageButton = document.getElementById('nextPageButton');
+
+    video.addEventListener('ended', function () {
+        window.location.href = "/question/"; // 影片播放完畢後導航到下一個 HTML 頁面
+    });
+
+    nextPageButton.addEventListener('click', function() {
+        window.location.href = "/question/"; // 點擊按鈕時導航到下一個 HTML 頁面
+    });
+</script>
+
+</body>
+</html>
